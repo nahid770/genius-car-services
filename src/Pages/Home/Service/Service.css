@@ -1,0 +1,6 @@
+.service-card{
+    border: 1px solid lightslategrey;
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+}

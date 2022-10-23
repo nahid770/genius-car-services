@@ -1,0 +1,34 @@
+form input:not([type=checkbox]){
+    display:block ;
+    width: 40%;
+    padding: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.507);
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+
+}
+form{
+    width: 100%;
+   
+    text-align: center;
+
+   
+
+}
+form button{
+    margin-top: 10px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: black;
+   padding: 10px 50px;
+   
+
+}
+form button:hover{
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+}
