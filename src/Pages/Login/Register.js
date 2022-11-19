@@ -6,6 +6,7 @@ import './Register.css'
 import SocialLogin from './SocialLogin/SocialLogin';
 import Loading from '../Shared/Loading/Loading';
 import PageTitle from '../Shared/PageTitle/PageTitle';
+import useToken from '../../hooks/UseToken';
 
 const Register = () => {
     const [agree, setAgree] = useState(false);
@@ -17,6 +18,7 @@ const Register = () => {
       ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification : true});
       const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
+    const [token] = useToken(user);
     const navigate  = useNavigate()
     const navigateLogin = (e) =>{
         e.preventDefault()
@@ -25,6 +27,10 @@ const Register = () => {
     if(loading || updating){
         return <Loading></Loading>
     }
+    
+    if(token){
+        navigate('/home')
+    };
 
     const handleRegister = async (e)=>{
         e.preventDefault();
@@ -37,7 +43,6 @@ const Register = () => {
         await updateProfile({ displayName});
         alert('Updated profile');
 
-        navigate('/home')
         
     }
     return (

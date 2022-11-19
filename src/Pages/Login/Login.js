@@ -8,6 +8,8 @@ import SocialLogin from './SocialLogin/SocialLogin';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../Shared/PageTitle/PageTitle';
+import axios from 'axios';
+import useToken from '../../hooks/UseToken';
 
 
 const Login = () => {
@@ -27,13 +29,14 @@ const Login = () => {
     const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(
       auth
     );
+    const [token] = useToken(user);
 
     if(loading || sending ){
       return <Loading></Loading>
   }
 
-    if(user){
-     navigate(from, {replace: true});
+    if(token){
+      // navigate(from, {replace: true});
     }
     if (error) {
       errorElement = <div>
@@ -42,11 +45,15 @@ const Login = () => {
     
    }
 
-    const handleSubmit = e =>{
+    const handleSubmit = async e =>{
         e.preventDefault();
         const email = emailRef.current.value;
-        const password = passwordRef.current.value
-        signInWithEmailAndPassword(email, password)
+        const password = passwordRef.current.value;
+
+       await signInWithEmailAndPassword(email, password)
+       
+       
+
     }
     const navigateRegister = () =>{
         navigate('/register')
@@ -78,7 +85,7 @@ const Login = () => {
         <Form.Control ref={passwordRef} type="password" placeholder="Password" required />
       </Form.Group>
      
-      <input className='w-50 mx-auto d-block mb-3 btn btn-primary ' type="button" value="Login" />
+      <input className='w-50 mx-auto d-block mb-3 btn btn-primary ' type="submit" value="Login" />
     </Form>
     {errorElement}
     <p>Don't have account? <Link to='/register' className='text-primary pe-auto text-decoration-none' onClick={navigateRegister}>create account</Link></p>
